@@ -15,11 +15,15 @@ const { Pool } = pg;
 const isProduction = process.env.NODE_ENV === 'production';
 
 // Support both DATABASE_URL (for Vercel / Supabase / Cloud DB) and individual credentials (localhost)
-const poolConfig = process.env.DATABASE_URL
+const DEFAULT_SUPABASE_URL = 'postgresql://postgres:Liuyuning12@db.wfuqwvgzsnjxbhdhokej.supabase.co:5432/postgres';
+
+const dbUrl = process.env.DATABASE_URL || (process.env.USE_LOCAL_DB === 'true' ? null : DEFAULT_SUPABASE_URL);
+
+const poolConfig = dbUrl
   ? {
-      connectionString: process.env.DATABASE_URL,
+      connectionString: dbUrl,
       // Supabase & cloud PostgreSQL require SSL
-      ssl: process.env.DATABASE_URL.includes('localhost')
+      ssl: dbUrl.includes('localhost')
         ? false
         : { rejectUnauthorized: false },
     }
