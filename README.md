@@ -1,292 +1,147 @@
-# 📚 Bibliotheca - Book Management System
+# 📚 Bibliotheca - Modern Library & Book Management System
 
-A modern full-stack book management application dengan Python FastAPI backend dan React frontend.
+A full-stack, responsive web application for exploring, managing, reviewing, and bookmarking books. Built with **React (Vite)**, **Express / Serverless Node.js**, and powered by **PostgreSQL on Supabase Cloud**, ready for one-click deployment on **Vercel**.
 
-## ✨ Features
-
-- 🔐 User Authentication (Register/Login dengan JWT)
-- 📖 Browse dan search books
-- ⭐ Add books to favorites
-- 📚 Personal library management
-- 👤 User profile
-- 🛠️ Admin dashboard untuk CRUD operations
-- 🎨 Modern, responsive UI
-- 🔒 Secure authentication & authorization
-
-## 🛠️ Tech Stack
-
-**Backend:**
-- **Python 3.8+**
-- **FastAPI** - Modern Python web framework
-- **PostgreSQL** - Database
-- **JWT** - Authentication
-- **Uvicorn** - ASGI server
-
-**Frontend:**
-- **React 19**
-- **React Router v7**
-- **Context API**
-- **Vite**
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.8+
-- PostgreSQL 12+
-- Node.js 18+
-
-### Setup dalam 5 Langkah
-
-#### 1️⃣ Create Database
-
-**Via pgAdmin (Recommended):**
-1. Buka pgAdmin
-2. Create database: `database_buku`
-3. Klik kanan database → Query Tool
-4. Load file `backend/init_db.sql`
-5. Execute (F5)
-
-**Via psql (Command Line):**
-```bash
-psql -U postgres -c "CREATE DATABASE database_buku;"
-psql -U postgres -d database_buku -f backend/init_db.sql
-```
-
-#### 2️⃣ Install Python Dependencies
-
-```bash
-cd backend
-pip install -r requirements.txt
-```
-
-#### 3️⃣ Install Frontend Dependencies
-
-```bash
-cd ..
-npm install
-```
-
-#### 4️⃣ Start Backend Server
-
-```bash
-cd backend
-uvicorn main:app --reload --port 3001
-```
-
-Backend running di:
-- **API**: http://localhost:3001
-- **Docs**: http://localhost:3001/docs (Interactive API docs!)
-
-#### 5️⃣ Start Frontend Server
-
-**Terminal baru:**
-
-```bash
-npm run dev
-```
-
-Frontend running di: **http://localhost:5173**
-
-## 🎉 Test Aplikasi
-
-1. Buka http://localhost:5173
-2. Klik **Register** → Buat account baru
-3. Login dengan account
-4. Explore! 📚
-
-## 📖 Documentation
-
-- **[SETUP-PYTHON.md](SETUP-PYTHON.md)** - Complete setup guide
-- **[backend/README.md](backend/README.md)** - Backend API documentation
-- **API Docs**: http://localhost:3001/docs (FastAPI auto-generated docs)
-
-## 🔑 Default Configuration
-
-**Database:**
-- Host: localhost
-- Port: 5432
-- Database: database_buku
-- User: postgres
-- Password: yuningge
-
-**Servers:**
-- Backend: http://localhost:3001
-- Frontend: http://localhost:5173
-
-## 📁 Project Structure
-
-```
-sistech-hands-on-01/
-├── backend/                # Python FastAPI Backend
-│   ├── main.py            # Main API + routes
-│   ├── database.py        # PostgreSQL connection
-│   ├── auth.py            # JWT authentication
-│   ├── models.py          # Pydantic models
-│   ├── init_db.sql        # Database schema
-│   ├── requirements.txt   # Python dependencies
-│   └── .env              # Backend config
-├── src/                   # React Frontend
-│   ├── context/
-│   │   ├── AuthContext.jsx
-│   │   └── BookContext.jsx
-│   ├── pages/
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   └── ...
-│   ├── components/
-│   └── styles/
-├── .env                   # Frontend config
-└── ...
-```
-
-## 🎯 Available Scripts
-
-**Backend:**
-```bash
-cd backend
-uvicorn main:app --reload --port 3001  # Development
-python main.py                          # Production
-```
-
-**Frontend:**
-```bash
-npm run dev      # Development server
-npm run build    # Build for production
-npm run preview  # Preview production build
-```
-
-## 🔐 API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user (protected)
-
-### Books
-- `GET /api/books` - Get all books
-- `GET /api/books/{id}` - Get single book
-- `POST /api/books` - Create book (protected)
-- `PUT /api/books/{id}` - Update book (protected)
-- `DELETE /api/books/{id}` - Delete book (protected)
-
-### Favorites
-- `GET /api/favorites` - Get user favorites (protected)
-- `POST /api/favorites/{book_id}` - Add to favorites (protected)
-- `DELETE /api/favorites/{book_id}` - Remove from favorites (protected)
-
-**💡 Tip**: Lihat interactive API documentation di http://localhost:3001/docs
-
-## 🔒 Security Features
-
-- ✅ Password hashing dengan bcrypt
-- ✅ JWT token-based authentication (7 hari expiry)
-- ✅ Protected API routes
-- ✅ SQL injection prevention (parameterized queries)
-- ✅ CORS configuration
-- ✅ Input validation dengan Pydantic
-
-## 🐛 Troubleshooting
-
-### Backend won't start
-
-```bash
-# Check Python version
-python --version  # Should be 3.8+
-
-# Reinstall dependencies
-cd backend
-pip install -r requirements.txt
-```
-
-### Database errors
-
-```bash
-# Check PostgreSQL is running
-Get-Service postgresql*
-
-# Verify database exists
-# Open pgAdmin atau psql dan check database_buku
-```
-
-### Frontend can't connect
-
-1. Check backend is running: http://localhost:3001/api/health
-2. Check browser console for errors
-3. Verify `.env` has `VITE_API_URL=http://localhost:3001/api`
-
-### Port already in use
-
-```bash
-# Find process using port
-netstat -ano | findstr :3001
-
-# Kill process
-taskkill /PID <PID_NUMBER> /F
-```
-
-## 📦 Dependencies
-
-### Python (Backend)
-- fastapi - Web framework
-- uvicorn - ASGI server
-- psycopg2-binary - PostgreSQL adapter
-- python-jose - JWT handling
-- passlib - Password hashing
-- pydantic - Data validation
-- email-validator - Email validation
-
-### Node.js (Frontend)
-- react - UI library
-- react-router-dom - Routing
-- vite - Build tool
-
-## 🚀 Production Deployment
-
-### Backend Options
-- **Railway.app** - Easy Python deployment
-- **Render.com** - Free tier available
-- **Heroku** - Classic choice
-- **DigitalOcean** - VPS option
-
-### Frontend Options
-- **Vercel** - Recommended for React
-- **Netlify** - Great for static sites
-- **GitHub Pages** - Free hosting
-
-### Database Options
-- **Supabase** - PostgreSQL hosted (free tier)
-- **Railway** - PostgreSQL plugin
-- **ElephantSQL** - Managed PostgreSQL
-
-Lihat [SETUP-PYTHON.md](SETUP-PYTHON.md) untuk detail deployment.
-
-## ✨ Features
-
-### Public (No Auth)
-✅ Browse home page  
-✅ View book list  
-✅ View book details
-
-### Protected (Login Required)
-✅ User registration & login  
-✅ Add/remove favorites  
-✅ My Favorites page  
-✅ My Library  
-✅ User profile  
-✅ Admin dashboard (CRUD books)
-
-## 📝 License
-
-This project is open source and available under the MIT License.
-
-## 👥 Contributing
-
-Contributions, issues, and feature requests are welcome!
+🌐 **Live Demo:** [https://fe-sistech01.vercel.app](https://fe-sistech01.vercel.app)
 
 ---
 
-**Made with ❤️ using Python FastAPI 🐍 + React ⚛️**
+## ✨ Features
 
-**Backend**: Python FastAPI  
-**Frontend**: React  
-**Database**: PostgreSQL
+### 👤 User & Authentication
+- **Secure Authentication**: Register and Login using JWT (JSON Web Tokens) with password hashing via `bcryptjs`.
+- **Broken Access Control Prevention**:
+  - Server-side rate limiter for login attempts (protection against brute-force attacks).
+  - Strong password policy enforcement (minimum 8 characters, uppercase, numbers, and special symbols).
+  - Role-based permissions ensuring users can only read/edit their own data.
+- **Dynamic Profile Management**:
+  - View user profile with personalized avatar initials.
+  - In-place profile editor: change username, email, and password with real-time feedback.
+- **Role System**: Supports regular `user` and privileged `admin`.
+
+### 📖 Book Browsing & Personal Library
+- **Explore & Search**: Real-time search across hundreds of cataloged books by title, author, and category.
+- **Curated Sections**: Dynamic "Top Pick" and "Weekly Top" highlights powered directly from cloud database flags.
+- **Saved / Favorites**: Add or remove books from personal reading wishlist with instant sync to Supabase.
+- **Reviews & Ratings**: Access to community reviews and ratings for each book.
+
+### 🛡️ Admin Dashboard (CRUD Management)
+- Accessible only to authorized `admin` accounts.
+- **Interactive Overview**: Quick statistics (total books, categories, active top picks, and weekly highlights).
+- **Full Book Management**:
+  - Add new books with custom metadata.
+  - Edit existing titles, descriptions, categories, and cover images.
+  - Delete books with custom modal confirmation.
+  - Real-time toggle switches for *Top Pick* and *Weekly Top* status.
+
+### 🎨 Modern UI / UX
+- Sticky full-width navigation bar with subtle shadow on scroll.
+- Floating animated background gradient with glowing ambient orbs on Auth pages.
+- Responsive design tailored for desktops, tablets, and mobile devices.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Frontend** | React 19, Vite, React Router DOM, React Icons, Swiper |
+| **Backend / API** | Node.js, Express, Vercel Serverless Functions (`api/index.js`) |
+| **Database** | PostgreSQL on **Supabase Cloud** (5 tables: `books`, `users`, `book_reviews`, `user_favorites`, `raw_books`) |
+| **Authentication** | JWT (`jsonwebtoken`), `bcryptjs` |
+| **Deployment** | Vercel (Frontend & Serverless API Monorepo) |
+
+---
+
+## 📂 Project Architecture
+
+```text
+sistech-hands-on-01/
+├── api/
+│   └── index.js                 # Vercel Serverless entry point routing Express
+├── backend/                     # Optional Python FastAPI reference backend
+├── public/                      # Static assets & icons
+├── server/
+│   ├── middleware/              # Auth middleware (JWT verification)
+│   ├── db.js                    # Universal Supabase cloud & local PostgreSQL adapter
+│   └── server.js                # Express REST API routes (Auth, Books, Favorites)
+├── src/
+│   ├── components/              # Reusable UI (Navbar, BookCard, etc.)
+│   ├── context/                 # Global state (AuthContext, BookContext)
+│   ├── pages/                   # Views (Home, BookList, BookDetail, Favorites, Profile, Login)
+│   │   └── admin/               # Admin Dashboard & BookForm components
+│   ├── styles/                  # Modular component stylesheets
+│   ├── App.jsx                  # Route definitions & protected route wrappers
+│   └── main.jsx                 # Client entry point
+├── vercel.json                  # Serverless routing configuration
+└── vite.config.js               # Vite build config with local dev proxy
+```
+
+---
+
+## 🚀 Getting Started Locally
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- Git
+
+### 1. Clone & Install Dependencies
+```bash
+git clone https://github.com/sparkletwlght/FE-SISTECH01.git
+cd FE-SISTECH01
+npm install
+```
+
+### 2. Environment Variables Setup
+Create a `.env` file in the root directory (or in `server/.env`):
+```env
+# Supabase Cloud Database Connection
+DATABASE_URL=postgresql://postgres:[YOUR_PASSWORD]@db.wfuqwvgzsnjxbhdhokej.supabase.co:5432/postgres
+JWT_SECRET=your_super_secret_jwt_key
+PORT=3001
+
+# Set to true only if you wish to fallback to local PostgreSQL (localhost:5432)
+USE_LOCAL_DB=false
+```
+
+### 3. Run Development Servers
+Open two terminal windows:
+
+**Terminal 1 (Backend API):**
+```bash
+npm run server
+# Server running on http://localhost:3001
+```
+
+**Terminal 2 (Frontend React):**
+```bash
+npm run dev
+# Vite client running on http://localhost:5173
+```
+
+---
+
+## ☁️ Deployment on Vercel
+
+This project is configured as a zero-config monorepo for Vercel:
+
+1. Import the repository in your [Vercel Dashboard](https://vercel.com/new).
+2. Set **Root Directory** to `./` (root).
+3. Under **Environment Variables**, add:
+   - `DATABASE_URL` = Your Supabase Connection String URI
+   - `JWT_SECRET` = Your secure token secret
+4. Click **Deploy**. Vercel will automatically build the React frontend and deploy the Express API as Serverless Functions via `vercel.json`.
+
+---
+
+## 🔐 Default Demo Accounts
+
+| Role | Email | Password |
+|---|---|---|
+| **Admin** | `admin@books.com` | `admin123` |
+| **Reader** | `rin@books.com` | *(Created via register)* |
+
+---
+
+## 📄 License
+This project was developed for educational and hands-on portfolio purposes.
