@@ -97,9 +97,19 @@ class SupabaseDbAdapter {
 
     // 2. INSERT into users
     if (/^INSERT\s+INTO\s+users/i.test(cleanSql)) {
+      // Find current max user_id so serial PK doesn't collide with migrated users
+      const { data: maxRows } = await supabase
+        .from('users')
+        .select('user_id')
+        .order('user_id', { ascending: false })
+        .limit(1);
+
+      const nextId = (maxRows && maxRows.length > 0 && maxRows[0].user_id) ? maxRows[0].user_id + 1 : 1;
+
       const { data, error } = await supabase
         .from('users')
         .insert([{
+          user_id: nextId,
           username: params[0],
           email: params[1],
           password_hash: params[2],
