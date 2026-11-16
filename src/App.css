@@ -1,5 +1,22 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: #EDF2F7;
+}
+
 #root {
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     background-color: #EDF2F7;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
@@ -27,6 +44,9 @@
 /*navbar*/
 
 .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,6 +56,8 @@
     color: #F7FAFC;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
 }
 
 .nav-links {
@@ -161,12 +183,12 @@ a {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    transition: .2s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, .18);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
 }
 
 .book-title {
@@ -252,10 +274,16 @@ a {
     font-size: 20px;
     color: #E63946;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .favorite-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+
+.favorite-btn:active {
+    transform: scale(0.9);
 }
 
 
@@ -376,32 +404,68 @@ a {
     margin-top: 60px;
 }
 
-.top {
-    justify-content: space-between;
-    font-size: 25px;
+/* ── Home book row (Top Pick / Weekly Top dari DB) ── */
+.home-book-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 20px 5% 10px;
 }
 
-.t1,
-.t2,
-.t3 {
-    width: 300px;
-    height: 400px;
-    gap: 20px;
-    padding: auto;
-    margin: 25px;
-    margin-top: 5px;
+.home-book-cover-link {
+    text-decoration: none;
+    color: inherit;
 }
 
-.w1,
-.w2,
-.w3 {
-    width: 300px;
-    height: 400px;
-    gap: 20px;
-    padding: auto;
-    margin: 25px;
-    margin-top: 5px;
+.home-book-cover {
+    position: relative;
+    width: 220px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
 }
+
+.home-book-cover:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.25);
+}
+
+.home-book-cover img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.home-book-cover-placeholder {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, #1A365D, #2B6CB0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 72px;
+    color: white;
+    font-weight: 700;
+}
+
+.home-book-cover-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    padding: 24px 12px 10px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+}
+
 
 .text-desc {
     text-align: justify;
@@ -462,6 +526,46 @@ a {
     height: 100px;
 }
 
+/* Avatar lingkaran besar di halaman Profile */
+.profile-avatar-large {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #F59E0B;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 auto 16px auto;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+    transition: transform 0.25s ease;
+}
+.profile-avatar-large:hover {
+    transform: scale(1.07);
+}
+
+/* Profile card layout */
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 36px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    gap: 6px;
+}
+.profile-card h2 {
+    margin: 4px 0 12px 0;
+    color: #1A365D;
+    font-size: 24px;
+}
+
 .edit-btn {
     padding: 5px 30px;
     font-size: 18px;
@@ -473,4 +577,667 @@ a {
 .role,
 .email {
     font-size: 20px;
+}
+
+/* ── Profile Edit Form Styles ─────────────────────── */
+.profile-edit-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.profile-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4A5568;
+  margin-bottom: 4px;
+}
+
+.profile-field input {
+  padding: 10px 14px;
+  border: 1px solid #CBD5E0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.profile-field input:focus {
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.profile-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn-save {
+  flex: 1;
+  background: #1A365D;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-save:hover:not(:disabled) {
+  background: #2A4365;
+  transform: translateY(-1px);
+}
+
+.btn-save:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.profile-alert {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.profile-alert-error {
+  background: #FFF5F5;
+  color: #C53030;
+  border: 1px solid #FEB2B2;
+}
+
+.profile-alert-success {
+  background: #F0FFF4;
+  color: #276749;
+  border: 1px solid #9AE6B4;
+}
+
+
+/* ── Admin Dashboard ───────────────────────────────── */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Role badge */
+.admin-role-badge {
+  display: inline-block;
+  background: #F59E0B;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  margin-left: 8px;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
+}
+
+/* Admin nav link */
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #F59E0B !important;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.admin-nav-link:hover { opacity: 0.8; }
+
+/* Stats cards */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 3px solid #1A365D;
+  transition: transform 0.2s ease;
+}
+.admin-stat-card:hover { transform: translateY(-3px); }
+.admin-stat-card.amber { border-top-color: #F59E0B; }
+.admin-stat-card.blue  { border-top-color: #38BDF8; }
+.admin-stat-card.green { border-top-color: #38A169; }
+
+.admin-stat-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1A365D;
+}
+
+.admin-stat-label {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Filter row */
+.admin-filter-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.admin-search {
+  padding: 10px 20px;
+  border: 1px solid #CBD5E0;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.admin-search:focus {
+  outline: none;
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.15);
+}
+
+.admin-count {
+  color: #4A5568;
+  margin-bottom: 20px;
+}
+
+/* Category badge in table */
+.admin-cat-badge {
+  background: #EDF2F7;
+  color: #2D3748;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Top/Weekly badges */
+.badge-amber {
+  background: #FEF3C7;
+  color: #92400E;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-blue {
+  background: #E0F2FE;
+  color: #0369A1;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.admin-table th {
+  background-color: #1A365D;
+  color: white;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 13px;
+}
+
+.admin-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #2D3748;
+  border-bottom: 1px solid #EDF2F7;
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tr:hover td {
+  background-color: #FEFCE8;
+}
+
+.admin-cover {
+  width: 45px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Loading state */
+.admin-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+  gap: 16px;
+  color: #718096;
+}
+
+.admin-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #E2E8F0;
+  border-top-color: #F59E0B;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Toggle switch (BookForm toppick / weeklytop) ── */
+.form-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #F7FAFC;
+  border-radius: 10px;
+  border: 1px solid #E2E8F0;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2D3748;
+}
+
+.toggle-label small {
+  font-size: 11px;
+  font-weight: 400;
+  color: #A0AEC0;
+  margin-left: 2px;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-track {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  background: #CBD5E0;
+  border-radius: 20px;
+  transition: background 0.25s ease;
+  flex-shrink: 0;
+}
+
+.toggle-checkbox:checked + .toggle-track {
+  background: #F59E0B;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.25s ease;
+}
+
+.toggle-checkbox:checked + .toggle-track .toggle-thumb {
+  transform: translateX(18px);
+}
+
+.admin-search {
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.admin-count {
+  color: #4A5568;
+  margin-bottom: 20px;
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.admin-table th {
+  background-color: #1A365D;
+  color: white;
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.admin-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #2D3748;
+  border-bottom: 1px solid #EDF2F7;
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table tr:hover td {
+  background-color: #F7FAFC;
+}
+
+.admin-cover {
+  width: 45px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: #1A365D;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #274c7d;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-edit {
+  background-color: #2B6CB0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-edit:hover {
+  background-color: #2c5282;
+}
+
+.btn-delete {
+  background-color: #E53E3E;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-delete:hover {
+  background-color: #C53030;
+}
+
+.btn-cancel {
+  background-color: #718096;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-cancel:hover {
+  background-color: #4A5568;
+}
+
+/* ── Modal / BookForm ─────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  padding: 40px 20px;
+  overflow-y: auto;
+}
+
+.modal {
+  background: white;
+  border-radius: 16px;
+  padding: 36px;
+  width: 100%;
+  max-width: 560px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.2);
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #1A365D;
+}
+
+.book-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-row label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4A5568;
+}
+
+.form-row input,
+.form-row textarea {
+  padding: 10px 14px;
+  border: 1px solid #CBD5E0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+}
+
+.form-row input:focus,
+.form-row textarea:focus {
+  border-color: #2B6CB0;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.form-error {
+  color: #E53E3E;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* ── Navbar Auth Buttons ───────────────────────────── */
+
+/* Nav icon spacing */
+.nav-icon {
+  margin-right: 5px;
+  vertical-align: middle;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Active nav link */
+.nav-active {
+  color: #F59E0B !important;
+  border-bottom: 2px solid #F59E0B;
+  padding-bottom: 2px;
+}
+
+/* Nav link hover animation */
+.nav-links a {
+  transition: color 0.2s ease, opacity 0.2s ease;
+  position: relative;
+}
+.nav-links a:not(.register-link):not(.profile-nav-link):hover {
+  color: #F59E0B !important;
+}
+
+/* Saved link in navbar */
+.saved-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.saved-link:hover {
+  color: #F59E0B !important;
+}
+
+/* Register button — amber */
+.register-link {
+  background: #F59E0B;
+  padding: 8px 18px;
+  border-radius: 8px;
+  color: white !important;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.register-link:hover {
+  background: #D97706;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+/* Profile avatar circle in navbar */
+.profile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #EDF2F7 !important;
+  transition: opacity 0.2s ease;
+}
+.profile-nav-link:hover {
+  opacity: 0.85;
+}
+.profile-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #F59E0B;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.profile-nav-link:hover .profile-avatar {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
+}
+.profile-nav-name {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Logout button */
+.logout-btn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.logout-btn:hover {
+  background: #ee3344;
+  transform: translateY(-2px);
 }

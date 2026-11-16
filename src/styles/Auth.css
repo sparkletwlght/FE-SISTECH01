@@ -1,0 +1,292 @@
+/* ══════════════════════════════════════════════
+   Auth.css  —  Bibliotheca Login / Register
+   Tema: Navy (#1A365D) + Amber (#F59E0B) selaras navbar
+   ══════════════════════════════════════════════ */
+
+/* ── Animated background orbs ────────────────── */
+@keyframes floatSlow {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33%       { transform: translate(35px, -45px) scale(1.08); }
+  66%       { transform: translate(-25px, 25px) scale(0.95); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50%       { transform: translate(-40px, -30px) scale(1.1); }
+}
+
+/* ── Container ───────────────────────────────── */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Navy gradient selaras navbar #1A365D */
+  background: linear-gradient(135deg, #1e4068 0%, #152e4d 50%, #0f2137 100%);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Orb blobs */
+.orb-amber {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.28) 0%, rgba(245, 158, 11, 0) 70%);
+  filter: blur(40px);
+  animation: floatSlow 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-blue {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(56, 189, 248, 0) 70%);
+  filter: blur(50px);
+  animation: floatReverse 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Card ────────────────────────────────────── */
+.auth-card {
+  position: relative;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 36px 40px 40px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+/* ── Branding header ─────────────────────────── */
+.auth-brand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-brand-icon {
+  font-size: 28px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.auth-brand-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1A365D;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.5px;
+}
+
+.auth-brand-sub {
+  font-size: 13px;
+  color: #718096;
+  margin: 0;
+}
+
+/* ── Tabs ────────────────────────────────────── */
+.auth-tabs {
+  display: flex;
+  border-bottom: 2px solid #E2E8F0;
+  margin-bottom: 24px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #A0AEC0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.auth-tab.active {
+  color: #1A365D;
+  border-bottom-color: #F59E0B;
+}
+
+.auth-tab:hover:not(.active) {
+  color: #F59E0B;
+}
+
+/* ── Error / Success ─────────────────────────── */
+.auth-error {
+  background: #FFF5F5;
+  border: 1px solid #FED7D7;
+  color: #C53030;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.auth-success {
+  background: #F0FFF4;
+  border: 1px solid #9AE6B4;
+  color: #276749;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+/* ── Form ────────────────────────────────────── */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #2D3748;
+  font-size: 13px;
+}
+
+.form-group input {
+  padding: 10px 14px;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  color: #1A365D;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #F59E0B;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.form-group input:disabled {
+  background: #F7FAFC;
+  cursor: not-allowed;
+}
+
+/* ── Password show/hide ──────────────────────── */
+.pw-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pw-wrapper input {
+  padding-right: 44px !important;
+}
+
+.pw-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0;
+  line-height: 1;
+  color: #A0AEC0;
+  transition: opacity 0.2s;
+}
+.pw-toggle:hover { opacity: 0.65; }
+
+/* ── Strength bar ────────────────────────────── */
+.pw-strength {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.pw-strength-bar {
+  height: 4px;
+  border-radius: 4px;
+  transition: width 0.3s ease, background 0.3s ease;
+  min-width: 20px;
+}
+
+/* ── Rules checklist ─────────────────────────── */
+.pw-rules {
+  list-style: none;
+  padding: 4px 0 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pw-rules li {
+  font-size: 11px;
+  color: #CBD5E0;
+  transition: color 0.2s;
+}
+
+.pw-rules li.ok {
+  color: #38A169;
+  font-weight: 600;
+}
+
+/* ── Match/mismatch ──────────────────────────── */
+.pw-mismatch { font-size: 12px; color: #E53E3E; margin-top: 2px; }
+.pw-match    { font-size: 12px; color: #38A169; font-weight: 600; margin-top: 2px; }
+
+/* ── Button ──────────────────────────────────── */
+.auth-button {
+  background: #1A365D;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 4px;
+  width: 100%;
+  letter-spacing: 0.3px;
+}
+
+.auth-button:hover:not(:disabled) {
+  background: #2B6CB0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 54, 93, 0.35);
+}
+
+.auth-button:active:not(:disabled) {
+  transform: translateY(0);
+  background: #1A365D;
+}
+
+.auth-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 20px;
+  }
+  .auth-brand-name {
+    font-size: 20px;
+  }
+}

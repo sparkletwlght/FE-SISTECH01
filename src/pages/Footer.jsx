@@ -24,7 +24,7 @@ function Footer() {
             </ul>
             <ul className="copyright">
                 <FaCopyright className="copyright-icon" />
-                <space> Create for Sistech Hands On 1 by Corinthia Angie </space>
+                <space> Create for Sistech Hands On 1 and Revised for Python Framework by Corinthia Angie </space>
             </ul>
         </div>
     );
