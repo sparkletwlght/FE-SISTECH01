@@ -11,22 +11,17 @@ load_dotenv()
 # Create connection pool
 connection_pool = None
 
-DEFAULT_SUPABASE_URL = "postgresql://postgres:Liuyuning12@db.wfuqwvgzsnjxbhdhokej.supabase.co:5432/postgres"
-
 def init_db_pool():
     global connection_pool
     try:
         db_url = os.getenv('DATABASE_URL')
-        if not db_url and os.getenv('USE_LOCAL_DB') != 'true':
-            db_url = DEFAULT_SUPABASE_URL
-            
         if db_url:
             connection_pool = psycopg2.pool.SimpleConnectionPool(
                 1, 20,
                 dsn=db_url,
                 sslmode='require' if 'supabase' in db_url else 'prefer'
             )
-            print("✅ Database connection pool created using Supabase/DATABASE_URL")
+            print("✅ Database connection pool created using DATABASE_URL")
         else:
             connection_pool = psycopg2.pool.SimpleConnectionPool(
                 1, 20,
@@ -36,7 +31,7 @@ def init_db_pool():
                 user=os.getenv('DB_USER', 'postgres'),
                 password=os.getenv('DB_PASSWORD', 'yuningge')
             )
-            print("✅ Database connection pool created using Localhost DB")
+            print("✅ Database connection pool created using Localhost DB (localhost:5432)")
     except Exception as e:
         print(f"❌ Error creating connection pool: {e}")
         raise e
